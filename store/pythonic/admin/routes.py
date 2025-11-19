@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, url_for, flash, redirect
+from flask import Blueprint, render_template, url_for, flash, redirect, request
 from pythonic import db
 from pythonic.models import Device, Category, Type
-from pythonic.admin.forms import TypeForm, CategoryForm, AddTypeCategoryForm, DeviceForm
+from pythonic.admin.forms import TypeForm, CategoryForm, AddTypeCategoryForm, DeviceForm, UpdateCategoryForm
 from flask_login import login_required
 
 admin = Blueprint('admin', __name__)
@@ -29,7 +29,7 @@ def admin_required(f):
 
 
 
-@admin.route('admin')
+@admin.route('/admin')
 @login_required
 @admin_required
 def admin():
@@ -94,3 +94,19 @@ def add_type_category():
     return render_template('add_type_category.html', form=form)
 
 
+
+@admin.route('/admin/dashboard', methods=["GET", "POST"])
+@login_required
+@admin_required
+def admin_dashboard(category_id):
+    category = Category.query.get_or_404(category_id)
+    category_form = UpdateCategoryForm(category_id=category.id)
+    if category_form.validate_on_submit():
+        category.name = category_form.name.data
+        db.session.commit()
+        flash(f"This Category has been updated.", "success")
+        return redirect(url_for('admin.admin_dashboard'))
+    elif request.method == "GET":
+        category_form.name = category.name
+    image_file = url_for('static', filename=f"category_pics/{category.image_file}")
+    return render_template('admin_dashboard.html', category_form=category_form)

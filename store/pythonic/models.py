@@ -12,7 +12,7 @@ def load_user(user_id):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), unique=True, nullable=False)
-    email = db.Column(db.String(125), unique=True, nullable=False)
+    phone = db.Column(db.String(15), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     requests = db.relationship("Request", backref="user", lazy=True)
 
@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
 
 class VerificationCode(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(125), unique=True, nullable=False)
+    phone = db.Column(db.String(15), unique=True, nullable=False)
     code = db.Column(db.String(6), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -35,10 +35,11 @@ class VerificationCode(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True, nullable=False)
+    image_file = db.Column(db.String(60), nullable=False, default="category.png")
     devices = db.relationship("Device", backref="category", lazy=True)
 
     def __repr__(self):
-        return f"Category('{self.name}')"
+        return f"Category('{self.name}', '{self.image_file}')"
 
 
 class Type(db.Model):
@@ -56,9 +57,10 @@ class Device(db.Model):
     price = db.Column(db.String(60), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=False)
+    image_file = db.Column(db.String(60), nullable=False, default="device.png")
 
     def __repr__(self):
-        return f"Device('{self.name}', '{self.price}')"
+        return f"Device('{self.name}', '{self.price}', '{self.image_file}')"
 
 
 class Request(db.Model):

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}لوحة إدارة التصنيف{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white text-center">
+                <h4>تعديل التصنيف</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ category_form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ category_form.name.label(class="form-label") }}
+                        {{ category_form.name(class="form-control") }}
+                    </div>
+                    <div class="d-grid">
+                        {{ category_form.submit(class="btn btn-dark") }}
+                    </div>
+                </form>
+                {% if category.image_file %}
+                <div class="mt-4 text-center">
+                    <h5>صورة التصنيف الحالية</h5>
+                    <img src="{{ image_file }}" class="img-fluid rounded" alt="صورة التصنيف">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

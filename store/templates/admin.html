@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}لوحة التحكم{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">لوحة التحكم</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{{ url_for('admin.add_type') }}" class="btn btn-primary w-100 mb-2">إضافة نوع</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ url_for('admin.add_category') }}" class="btn btn-secondary w-100 mb-2">إضافة تصنيف</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ url_for('admin.add_type_category') }}" class="btn btn-warning w-100 mb-2">ربط نوع بالتصنيف</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

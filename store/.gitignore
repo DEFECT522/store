@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+flaskapp/lib/
+
+# Distribution / packaging
+*.egg-info/
+*.egg
+dist/
+build/
+*.wheel
+*.tar.gz
+
+# SQLite database
+site.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp

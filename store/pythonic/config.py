@@ -1,3 +1,2 @@
 class Config:
-    SECRET_KEY = '1ba06924e801b36d83be0817485231fb80e13bc2e7a289143c1c17c4e24463b3'
-    SQLALCHEMY_DATABASE_URI = 'sqlite///pythonic.db'
+
